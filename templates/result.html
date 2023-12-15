@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<div class="container mt-3 ">
+    <div class="row">
+        <div class="col-md-8 mx-auto">
+            <p>Now you can open the specified number of videos from the playlist with one click on the button below.
+            Depending on the browser, you may need to go through and hit the play button on each video.
+            After that leave the tabs in the background and let them watch your videos.
+            YouTube allows one account to watch a video a certain number of times (from 5 to 10 in a day) which goes into statistics.
+            So opening the playlist in several tabs allows you to quickly view it all several times.
+            After that you can change account and try again.</p>
+            <p>
+            <strong>Be ready! It will open {{ links_to_open|length }} links at once with the longest videos from the playlist you gave</strong></p>
+                <div class="d-grid gap-2">
+             <button type="button" id="openLinksButton" class="btn btn-primary">Open Multiple Links</button>
+                </div>
+        </div>
+    </div>
+
+      <div class="row mt-4">
+        <div class="col-md-8 mx-auto">
+            <h2 class="mb-4">Playlist Details:</h2>
+          <ul class="list-group">
+            {% for video in playlist_videos %}
+                <li class="list-group-item">
+                    <a href="https://youtube.com{{video['Video URL']}}" target="_blank">{{ video['Title label'] }}</a>
+                </li>
+             {% endfor %}
+          </ul>
+        </div>
+    </div>
+</div>
+
+
+<script>
+    // Initialize an empty array to hold the links
+    var linksToOpen = [
+    {% for video in links_to_open %}
+        {{ video|tojson }},
+    {% endfor %}
+    ];
+
+    // Function to open multiple links in new tabs
+    function openMultipleLinks() {
+        for (var i = 0; i < linksToOpen.length; i++) {
+            window.open(linksToOpen[i], '_blank');
+        }
+    }
+
+    // Attach a click event listener to the button
+    document.getElementById('openLinksButton').addEventListener('click', openMultipleLinks);
+</script>
+
+{% endblock %}

@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container mt-3">
+    <div class="row">
+        <div class="col-md-8 mx-auto">
+            <form action="/process_playlist" method="POST">
+                <div class="mb-3">
+                    <label for="playlist_url" class="form-label">Enter YouTube playlist URL:</label>
+                    <input type="text" id="playlist_url" name="playlist_url" class="form-control" required>
+                </div>
+                <div class="mb-3">
+                    <label for="num_videos" class="form-label">Number of videos to open from playlist:</label>
+                    <input type="number" id="num_videos" name="num_videos" class="form-control" required min="1">
+                </div>
+                <button type="submit" class="btn btn-primary">Next</button>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}
